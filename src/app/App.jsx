@@ -1,20 +1,21 @@
+import { Navbar } from 'components/Navbar';
+import { Outlet } from 'react-router-dom';
+import { Container } from '@mui/material';
+
 function App() {
     return (
-        <div className='App'>
-            <header className='App-header'>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className='App-link'
-                    href='https://reactjs.org'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <>
+            <Navbar />
+            <Container
+                sx={{
+                    boxSizing: 'border-box',
+                    marginBlock: '86px',
+                    paddingInline: { xs: '16px', md: '32px', lg: '64px' },
+                }}
+            >
+                <Outlet />
+            </Container>
+        </>
     );
 }
 
