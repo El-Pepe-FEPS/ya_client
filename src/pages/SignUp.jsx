@@ -10,10 +10,16 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCsrfToken } from 'features/csrf/csrfSlice';
+import { register } from 'features/user/userAPI';
 
 export const SignUp = () => {
     const { control, handleSubmit } = useForm();
     const [showPassword, setShowPassword] = useState(false);
+    const csrfToken = useSelector(selectCsrfToken);
+    const dispatch = useDispatch();
+
     const showPasswordChanged = () =>
         setShowPassword((prevState) => !prevState);
 
@@ -36,7 +42,9 @@ export const SignUp = () => {
             </Typography>
             <form
                 action=''
-                onSubmit={handleSubmit((data) => console.log(data))}
+                onSubmit={handleSubmit((credentials) =>
+                    dispatch(register({ credentials, csrf: csrfToken }))
+                )}
                 noValidate
             >
                 <Stack spacing={2}>
@@ -79,6 +87,16 @@ export const SignUp = () => {
                                 value: true,
                                 message: 'This is required field.',
                             },
+                            minLength: {
+                                value: 8,
+                                message:
+                                    'Password must be at least 8 characters long.',
+                            },
+                            maxLength: {
+                                value: 16,
+                                message:
+                                    'Password must be at most 16 characters long.',
+                            },
                         }}
                         render={({
                             field: { onChange, onBlur },
@@ -86,7 +104,7 @@ export const SignUp = () => {
                             formState: { errors },
                         }) => (
                             <TextField
-                                type='password'
+                                type={showPassword ? 'text' : 'password'}
                                 label='Password'
                                 onChange={onChange}
                                 onBlur={onBlur}

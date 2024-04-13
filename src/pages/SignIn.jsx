@@ -10,10 +10,15 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from 'features/user/userAPI';
+import { selectCsrfToken } from 'features/csrf/csrfSlice';
 
 export const SignIn = () => {
     const { control, handleSubmit } = useForm();
     const [showPassword, setShowPassword] = useState(false);
+    const csrfToken = useSelector(selectCsrfToken);
+    const dispatch = useDispatch();
 
     const showPasswordChanged = () =>
         setShowPassword((prevState) => !prevState);
@@ -36,7 +41,9 @@ export const SignIn = () => {
             </Typography>
             <form
                 action=''
-                onSubmit={handleSubmit((data) => console.log(data))}
+                onSubmit={handleSubmit((credentials) =>
+                    dispatch(login({ credentials, csrf: csrfToken }))
+                )}
                 noValidate
             >
                 <Stack spacing={2}>

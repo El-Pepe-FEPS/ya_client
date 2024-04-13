@@ -14,24 +14,29 @@ import {
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Navbar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const isExpanded = Boolean(anchorEl);
 
+    const user = useSelector((state) => state.userReducer.user);
+
     const open = ({ currentTarget }) => setAnchorEl(currentTarget);
     const close = () => setAnchorEl(null);
 
-    const pages = [
-        {
-            route: '/sign-in',
-            title: 'Sign In',
-        },
-        {
-            route: '/sign-up',
-            title: 'Sign Up',
-        },
-    ];
+    const pages = user
+        ? [{ route: '/profile', title: 'Profile' }]
+        : [
+              {
+                  route: '/sign-in',
+                  title: 'Sign In',
+              },
+              {
+                  route: '/sign-up',
+                  title: 'Sign Up',
+              },
+          ];
 
     return (
         <AppBar
