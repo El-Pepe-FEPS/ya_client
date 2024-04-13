@@ -20,17 +20,18 @@ import { email, password } from 'rules/auth';
 export const SignIn = () => {
     const { control, handleSubmit } = useForm();
     const [showPassword, setShowPassword] = useState(false);
-    const csrfToken = useSelector(selectCsrfToken);
     const dispatch = useDispatch();
-    const [user] = useSelector(selectUser);
     const navigate = useNavigate();
+
+    const csrfToken = useSelector(selectCsrfToken);
+    const [user] = useSelector(selectUser);
 
     const showPasswordChanged = () =>
         setShowPassword((prevState) => !prevState);
 
     useEffect(() => {
         if (user) navigate('/');
-    }, [user]);
+    }, [navigate, user]);
 
     return (
         <Stack
@@ -126,12 +127,6 @@ export const SignIn = () => {
                     </Button>
                 </Stack>
             </form>
-            <Typography variant='body1' color='text.secondary'>
-                Or sign in with
-            </Typography>
-            <Button variant='outlined' color='primary'>
-                Google
-            </Button>
         </Stack>
     );
 };

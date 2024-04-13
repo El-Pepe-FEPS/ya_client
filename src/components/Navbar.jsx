@@ -26,8 +26,22 @@ export const Navbar = () => {
     const close = () => setAnchorEl(null);
 
     const pages = user
-        ? [{ route: '/profile', title: 'Profile' }]
+        ? [
+              {
+                  route: '/',
+                  title: 'Home',
+              },
+              { route: '/profile', title: 'Profile' },
+              {
+                  route: '/create',
+                  title: 'Create Post',
+              },
+          ]
         : [
+              {
+                  route: '/',
+                  title: 'Home',
+              },
               {
                   route: '/sign-in',
                   title: 'Sign In',

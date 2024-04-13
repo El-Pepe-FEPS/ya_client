@@ -7,10 +7,12 @@ import { Provider } from 'react-redux';
 import { getCsrfToken } from 'features/csrf/csrfAPI';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getPostList } from 'features/post/postAPI';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 store.dispatch(getCsrfToken());
+store.dispatch(getPostList());
 
 root.render(
     <React.StrictMode>

@@ -12,6 +12,7 @@ export const login = createAsyncThunk(
                     headers: {
                         'X-CSRFToken': csrf,
                     },
+                    withCredentials: true,
                 }
             );
 
@@ -34,6 +35,7 @@ export const register = createAsyncThunk(
                     headers: {
                         'X-CSRFToken': csrf,
                     },
+                    withCredentials: true,
                 }
             );
 

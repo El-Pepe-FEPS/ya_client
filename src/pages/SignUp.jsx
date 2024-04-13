@@ -20,17 +20,18 @@ import { useNavigate } from 'react-router-dom';
 export const SignUp = () => {
     const { control, handleSubmit } = useForm();
     const [showPassword, setShowPassword] = useState(false);
-    const csrfToken = useSelector(selectCsrfToken);
     const dispatch = useDispatch();
-
-    const [user] = useSelector(selectUser);
     const navigate = useNavigate();
+
+    const csrfToken = useSelector(selectCsrfToken);
+    const [user] = useSelector(selectUser);
+
     const showPasswordChanged = () =>
         setShowPassword((prevState) => !prevState);
 
     useEffect(() => {
         if (user) navigate('/');
-    }, [user]);
+    }, [navigate, user]);
 
     return (
         <Stack
@@ -185,12 +186,6 @@ export const SignUp = () => {
                     </Button>
                 </Stack>
             </form>
-            <Typography variant='body1' color='text.secondary'>
-                Or sign up with
-            </Typography>
-            <Button variant='outlined' color='primary'>
-                Google
-            </Button>
         </Stack>
     );
 };
