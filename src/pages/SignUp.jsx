@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Typography,
     Stack,
@@ -13,6 +13,9 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCsrfToken } from 'features/csrf/csrfSlice';
 import { register } from 'features/user/userAPI';
+import { email, fullName, password, phoneNumber } from 'rules/auth';
+import { selectUser } from 'features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const SignUp = () => {
     const { control, handleSubmit } = useForm();
@@ -20,8 +23,14 @@ export const SignUp = () => {
     const csrfToken = useSelector(selectCsrfToken);
     const dispatch = useDispatch();
 
+    const [user] = useSelector(selectUser);
+    const navigate = useNavigate();
     const showPasswordChanged = () =>
         setShowPassword((prevState) => !prevState);
+
+    useEffect(() => {
+        if (user) navigate('/');
+    }, [user]);
 
     return (
         <Stack
@@ -42,25 +51,74 @@ export const SignUp = () => {
             </Typography>
             <form
                 action=''
-                onSubmit={handleSubmit((credentials) =>
-                    dispatch(register({ credentials, csrf: csrfToken }))
-                )}
+                onSubmit={handleSubmit((credentials) => {
+                    const [name, surname, patronymic] =
+                        credentials.full_name.split(' ');
+                    dispatch(
+                        register({
+                            credentials: {
+                                name,
+                                surname,
+                                patronymic,
+                                email: credentials.email,
+                                password: credentials.password,
+                                phone_number: credentials.phone_number,
+                            },
+                            csrf: csrfToken,
+                        })
+                    );
+                })}
                 noValidate
             >
                 <Stack spacing={2}>
                     <Controller
                         control={control}
+                        name='full_name'
+                        rules={fullName}
+                        render={({
+                            field: { onChange, onBlur },
+                            fieldState: { invalid },
+                            formState: { errors },
+                        }) => (
+                            <TextField
+                                type='text'
+                                label='Full Name'
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                error={invalid}
+                                helperText={errors.full_name?.message}
+                                autoComplete='full-name'
+                                fullWidth
+                                required
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name='phone_number'
+                        rules={phoneNumber}
+                        render={({
+                            field: { onChange, onBlur },
+                            fieldState: { invalid },
+                            formState: { errors },
+                        }) => (
+                            <TextField
+                                type='tel'
+                                label='Phone Number'
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                error={invalid}
+                                helperText={errors.phone_number?.message}
+                                autoComplete='tel'
+                                fullWidth
+                                required
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
                         name='email'
-                        rules={{
-                            required: {
-                                value: true,
-                                message: 'This is required field.',
-                            },
-                            pattern: {
-                                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                                message: 'Invalid email address.',
-                            },
-                        }}
+                        rules={email}
                         render={({
                             field: { onChange, onBlur },
                             fieldState: { invalid },
@@ -82,22 +140,7 @@ export const SignUp = () => {
                     <Controller
                         control={control}
                         name='password'
-                        rules={{
-                            required: {
-                                value: true,
-                                message: 'This is required field.',
-                            },
-                            minLength: {
-                                value: 8,
-                                message:
-                                    'Password must be at least 8 characters long.',
-                            },
-                            maxLength: {
-                                value: 16,
-                                message:
-                                    'Password must be at most 16 characters long.',
-                            },
-                        }}
+                        rules={password}
                         render={({
                             field: { onChange, onBlur },
                             fieldState: { invalid },

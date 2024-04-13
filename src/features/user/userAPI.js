@@ -4,7 +4,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const login = createAsyncThunk(
     'user/login',
     async ({ credentials, csrf }, { rejectWithValue }) => {
-        console.error(credentials);
         try {
             const res = await axios.postForm(
                 'http://localhost:8000/login/',
@@ -16,11 +15,10 @@ export const login = createAsyncThunk(
                 }
             );
 
-            console.error(res.data);
-
             return res.data;
         } catch (error) {
-            return rejectWithValue(error);
+            const { response } = error;
+            return rejectWithValue(response.data.message);
         }
     }
 );
@@ -41,7 +39,9 @@ export const register = createAsyncThunk(
 
             return res.data;
         } catch (error) {
-            return rejectWithValue(error);
+            const { response } = error;
+
+            return rejectWithValue(response.data.message);
         }
     }
 );

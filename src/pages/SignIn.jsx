@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Typography,
     Stack,
@@ -13,15 +13,24 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'features/user/userAPI';
 import { selectCsrfToken } from 'features/csrf/csrfSlice';
+import { selectUser } from 'features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { email, password } from 'rules/auth';
 
 export const SignIn = () => {
     const { control, handleSubmit } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const csrfToken = useSelector(selectCsrfToken);
     const dispatch = useDispatch();
+    const [user] = useSelector(selectUser);
+    const navigate = useNavigate();
 
     const showPasswordChanged = () =>
         setShowPassword((prevState) => !prevState);
+
+    useEffect(() => {
+        if (user) navigate('/');
+    }, [user]);
 
     return (
         <Stack
@@ -50,16 +59,7 @@ export const SignIn = () => {
                     <Controller
                         control={control}
                         name='email'
-                        rules={{
-                            required: {
-                                value: true,
-                                message: 'This is required field.',
-                            },
-                            pattern: {
-                                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                                message: 'Invalid email address.',
-                            },
-                        }}
+                        rules={email}
                         render={({
                             field: { onChange, onBlur },
                             fieldState: { invalid },
@@ -81,12 +81,7 @@ export const SignIn = () => {
                     <Controller
                         control={control}
                         name='password'
-                        rules={{
-                            required: {
-                                value: true,
-                                message: 'This is required field.',
-                            },
-                        }}
+                        rules={password}
                         render={({
                             field: { onChange, onBlur },
                             fieldState: { invalid },
