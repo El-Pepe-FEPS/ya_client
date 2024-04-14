@@ -1,4 +1,5 @@
 import {
+    Paper,
     Stack,
     Box,
     List,
@@ -7,12 +8,10 @@ import {
     ListItemText,
     Typography,
     Avatar,
-    IconButton,
     CircularProgress,
     Link,
 } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatList } from 'features/chats/chatAPI';
@@ -54,49 +53,59 @@ export const ChatList = () => {
         );
 
     return (
-        <Stack
-            spacing={2}
-            sx={{ inlineSize: 'max(288px, 50%)', marginInline: 'auto' }}
+        <Paper
+            sx={{
+                inlineSize: 'max(288px, 50%)',
+                marginInline: 'auto',
+                paddingInline: { xs: 1, md: 3 },
+                paddingBlock: { xs: 2, md: 4 },
+            }}
         >
-            <Box>
-                <Typography variant='h4' component='h2' gutterBottom>
-                    Your active chats
-                </Typography>
-                <Typography variant='body1' paragraph>
-                    Connect, Share, Heal - Join ongoing conversations, find
-                    solidarity, and access real-time support from fellow war
-                    victims and volunteers.
-                </Typography>
-            </Box>
+            <Stack spacing={2}>
+                <Box>
+                    <Typography variant='h4' component='h2' gutterBottom>
+                        Your active chats
+                    </Typography>
+                    <Typography variant='body1' paragraph>
+                        Connect, Share, Heal - Join ongoing conversations, find
+                        solidarity, and access real-time support from fellow war
+                        victims and volunteers.
+                    </Typography>
+                </Box>
 
-            <List>
-                {chats?.map((chat) => (
-                    <ListItem
-                        secondaryAction={
-                            <IconButton color='error'>
-                                <DeleteOutlineOutlinedIcon />
-                            </IconButton>
-                        }
-                        divider
-                        key={chat.id}
-                    >
-                        <ListItemAvatar>
-                            <Avatar />
-                        </ListItemAvatar>
-                        <ListItemText>
-                            <Link
-                                component={RouterLink}
-                                variant='body1'
-                                to={`/chats/${chat.id}`}
-                                underline='none'
-                                display='block'
-                            >
-                                {getChatName(user, chat.sender, chat.recipient)}
-                            </Link>
-                        </ListItemText>
-                    </ListItem>
-                ))}
-            </List>
-        </Stack>
+                <List>
+                    {chats?.map((chat) => (
+                        <ListItem key={chat.id}>
+                            <ListItemAvatar>
+                                <Avatar />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={
+                                    <Link
+                                        component={RouterLink}
+                                        variant='body1'
+                                        to={`/chats/${chat.id}`}
+                                        underline='none'
+                                        display='block'
+                                        color='inherit'
+                                    >
+                                        {getChatName(
+                                            user,
+                                            chat.sender,
+                                            chat.recipient
+                                        )}
+                                    </Link>
+                                }
+                                secondary={
+                                    user.id === chat.sender.id
+                                        ? chat.sender.phone_number
+                                        : chat.recipient.phone_number
+                                }
+                            />
+                        </ListItem>
+                    ))}
+                </List>
+            </Stack>
+        </Paper>
     );
 };
