@@ -4,7 +4,7 @@ import { CircularProgress, Pagination, Stack, Typography } from '@mui/material';
 import { PublicationList } from 'components/PublicationList';
 import { selectPostsByType } from 'features/post/postSlice';
 
-export const Requests = ({type}) => {
+export const Requests = ({ type }) => {
     const [posts, _, pending] = useSelector((state) =>
         selectPostsByType(state, type)
     );
@@ -21,7 +21,8 @@ export const Requests = ({type}) => {
         return (
             <section>
                 <Typography variant='h4' component='h2' gutterBottom>
-                    All assistance {type === 'help assistance'? 'requests' : 'offers'}
+                    All assistance{' '}
+                    {type === 'help request' ? 'requests' : 'offers'}
                 </Typography>
                 <Typography variant='body' paragraph color='text.secondary'>
                     There are nothing yet posted.
@@ -43,7 +44,8 @@ export const Requests = ({type}) => {
                         gutterBottom
                         sx={{ textTransform: 'capitalize' }}
                     >
-                         All assistance {type === 'help assistance'? 'requests' : 'offers'}
+                        All assistance{' '}
+                        {type === 'help request' ? 'requests' : 'offers'}
                     </Typography>
                 </Stack>
 

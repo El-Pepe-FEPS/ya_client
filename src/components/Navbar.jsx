@@ -5,16 +5,17 @@ import {
     Toolbar,
     Menu,
     MenuItem,
-    Typography,
     Box,
     Stack,
     IconButton,
     Link,
+    Avatar,
 } from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import logo from 'assets/logo.png';
 
 export const Navbar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -36,10 +37,6 @@ export const Navbar = () => {
                   title: 'Assistance Offers',
               },
               {
-                  route: '/assistance-requests',
-                  title: 'Assistance Request',
-              },
-              {
                   route: '/resources',
                   title: 'Resources',
               },
@@ -58,10 +55,6 @@ export const Navbar = () => {
               {
                   route: '/',
                   title: 'Home',
-              },
-              {
-                  route: '/assistance-requests',
-                  title: 'Assistance Requests',
               },
               {
                   route: '/assistance-offers',
@@ -90,13 +83,15 @@ export const Navbar = () => {
         >
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
-                    <Typography
-                        variant='h5'
-                        component='h1'
-                        sx={{ flexGrow: 1 }}
-                    >
-                        Logo
-                    </Typography>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Avatar
+                            src={logo}
+                            sx={{
+                                inlineSize: { xs: '48px', md: '64px' },
+                                blockSize: { xs: '48px', md: '64px' },
+                            }}
+                        />
+                    </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             onClick={open}
