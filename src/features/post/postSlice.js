@@ -40,8 +40,19 @@ const postSlice = createSlice({
 });
 
 export default postSlice.reducer;
-export const selectHelpRequestList = (state) => [
+export const selectPostList = (state) => [
     state.postReducer.posts,
+    state.postReducer.error,
+    state.postReducer.pending,
+];
+export const selectPostsByType = (state, type) => [
+    state.postReducer.posts?.filter((post) => post.type === type),
+    state.postReducer.error,
+    state.postReducer.pending,
+];
+
+export const selectSinglePost = (state, postID) => [
+    state.postReducer.posts?.find((post) => post.id === postID),
     state.postReducer.error,
     state.postReducer.pending,
 ];

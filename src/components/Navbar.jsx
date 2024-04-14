@@ -31,6 +31,10 @@ export const Navbar = () => {
                   route: '/',
                   title: 'Home',
               },
+              {
+                  route: '/assistance-requests',
+                  title: 'Assistance Request',
+              },
               { route: '/profile', title: 'Profile' },
               {
                   route: '/create',
@@ -41,6 +45,10 @@ export const Navbar = () => {
               {
                   route: '/',
                   title: 'Home',
+              },
+              {
+                  route: '/assistance-requests',
+                  title: 'Assistance Requests',
               },
               {
                   route: '/sign-in',

@@ -5,7 +5,9 @@ import {
     Avatar,
     Typography,
     CardContent,
+    Link,
 } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const PostExcerpt = ({ id, title, description, category, user }) => {
     return (
@@ -13,12 +15,19 @@ export const PostExcerpt = ({ id, title, description, category, user }) => {
             <CardHeader
                 component='header'
                 avatar={<Avatar src={'https://source.unsplash.com/random'} />}
-                title={'Travis Scott'}
+                title={[user.name, user.surname, user.patronymic].join(' ')}
                 subheader={category.title}
             />
             <CardContent>
                 <Typography variant='h5' component='h3' gutterBottom>
-                    {title}
+                    <Link
+                        component={RouterLink}
+                        to={`/post/${id}`}
+                        underline='none'
+                        color='inherit'
+                    >
+                        {title}
+                    </Link>
                 </Typography>
                 <Typography
                     variant='body1'
