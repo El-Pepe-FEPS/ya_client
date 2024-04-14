@@ -15,7 +15,7 @@ import { selectCsrfToken } from 'features/csrf/csrfSlice';
 import { selectUser } from 'features/user/userSlice';
 import { toast } from 'react-toastify';
 
-export const CreateHelpRequest = () => {
+export const CreatePost = () => {
     const [categories, setCategories] = useState(null);
     const { handleSubmit, control, reset } = useForm({
         defaultValues: { title: '', category: '', description: '' },
