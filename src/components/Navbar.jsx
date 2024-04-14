@@ -36,6 +36,14 @@ export const Navbar = () => {
                   route: '/create',
                   title: 'Create Post',
               },
+              {
+                route: '/assistance-offers',
+                title: 'Assistance Offers',
+            },
+            {
+                route: '/Resources',
+                title: 'Resources',
+            },
           ]
         : [
               {
@@ -50,6 +58,14 @@ export const Navbar = () => {
                   route: '/sign-up',
                   title: 'Sign Up',
               },
+              {
+                  route: '/assistance-offers',
+                  title: 'Assistance Offers',
+              },
+              {
+                route: '/resources',
+                title: 'Resources',
+            },
           ];
 
     return (

@@ -5,7 +5,9 @@ import { SignIn } from 'pages/SignIn';
 import { SignUp } from 'pages/SignUp';
 import { Home } from 'pages/Home';
 import { CreateHelpRequest } from 'pages/CreatePost';
+import { AssistanceOffers } from 'pages/AssistanceOffers';
 import { Protected } from 'components/Protected';
+import { Resources } from 'pages/Resources';
 
 export const Router = () => {
     return (
@@ -15,6 +17,8 @@ export const Router = () => {
                     <Route index element={<Home />} />
                     <Route path='sign-in' element={<SignIn />} />
                     <Route path='sign-up' element={<SignUp />} />
+                    <Route path='assistance-offers' element={<AssistanceOffers />} />
+                    <Route path='resources' element={<Resources />} />
                     <Route
                         path='create'
                         element={
