@@ -4,10 +4,11 @@ import App from 'app/App';
 import { SignIn } from 'pages/SignIn';
 import { SignUp } from 'pages/SignUp';
 import { Home } from 'pages/Home';
-import { CreateHelpRequest } from 'pages/CreatePost';
-import { AssistanceOffers } from 'pages/AssistanceOffers';
+import { CreatePost } from 'pages/CreatePost';
 import { Protected } from 'components/Protected';
 import { Resources } from 'pages/Resources';
+import {  Requests } from 'pages/Requests';
+import { PostDetails } from 'pages/PostDetails';
 
 export const Router = () => {
     return (
@@ -17,16 +18,21 @@ export const Router = () => {
                     <Route index element={<Home />} />
                     <Route path='sign-in' element={<SignIn />} />
                     <Route path='sign-up' element={<SignUp />} />
-                    <Route path='assistance-offers' element={<AssistanceOffers />} />
+                    <Route
+                        path='/assistance-requests'
+                        element={<Requests type='help assistance'/>}
+                    />
+                    <Route path='assistance-offers' element={<Requests type='help offer' />} />
                     <Route path='resources' element={<Resources />} />
                     <Route
                         path='create'
                         element={
                             <Protected>
-                                <CreateHelpRequest />
+                                <CreatePost />
                             </Protected>
                         }
                     />
+                    <Route path='post/:postID' element={<PostDetails />} />
                 </Route>
             </Routes>
         </BrowserRouter>
