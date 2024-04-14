@@ -6,9 +6,11 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
+import { createChat } from 'features/chats/chatAPI';
+import { selectCsrfToken } from 'features/csrf/csrfSlice';
 import { selectSinglePost } from 'features/post/postSlice';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 export const PostDetails = () => {
@@ -16,6 +18,8 @@ export const PostDetails = () => {
     const [post, error, pending] = useSelector((state) =>
         selectSinglePost(state, parseInt(postID))
     );
+    const csrfToken = useSelector(selectCsrfToken);
+    const dispatch = useDispatch();
 
     if (pending) return <CircularProgress color='primary' />;
 
@@ -69,6 +73,9 @@ export const PostDetails = () => {
                 variant='outlined'
                 color='primary'
                 sx={{ marginBlockStart: 3 }}
+                onClick={() =>
+                    dispatch(createChat({ postID, csrf: csrfToken }))
+                }
             >
                 Contact
             </Button>

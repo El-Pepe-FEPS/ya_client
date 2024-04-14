@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCsrfToken } from 'features/csrf/csrfSlice';
 import { selectUser } from 'features/user/userSlice';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const CreatePost = () => {
     const [categories, setCategories] = useState(null);
@@ -21,14 +22,17 @@ export const CreatePost = () => {
         defaultValues: { title: '', category: '', description: '' },
     });
     const csrfToken = useSelector(selectCsrfToken);
-    const [user, _, pending] = useSelector(selectUser);
+    const [user, pending] = useSelector(selectUser);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const clearFormFields = () =>
-        reset({ title: '', category: '', description: '' });
+        reset({ title: '', category: '', description: '', type: '' });
 
     useEffect(() => {
         getCategories().then((categories) => setCategories(categories));
+
+        if (!user) navigate('/');
     }, []);
 
     if (!categories || pending) return <CircularProgress />;
@@ -132,7 +136,7 @@ export const CreatePost = () => {
                                 <MenuItem value='help offer'>
                                     Assistance offer
                                 </MenuItem>
-                                <MenuItem value='help assistance'>
+                                <MenuItem value='help request'>
                                     Assistance request
                                 </MenuItem>
                             </TextField>

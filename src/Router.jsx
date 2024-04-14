@@ -7,8 +7,10 @@ import { Home } from 'pages/Home';
 import { CreatePost } from 'pages/CreatePost';
 import { Protected } from 'components/Protected';
 import { Resources } from 'pages/Resources';
-import {  Requests } from 'pages/Requests';
+import { Requests } from 'pages/Requests';
 import { PostDetails } from 'pages/PostDetails';
+import { ChatList } from 'pages/ChatList';
+import { Chat } from 'pages/Chat';
 
 export const Router = () => {
     return (
@@ -20,10 +22,29 @@ export const Router = () => {
                     <Route path='sign-up' element={<SignUp />} />
                     <Route
                         path='/assistance-requests'
-                        element={<Requests type='help assistance'/>}
+                        element={<Requests type='help request' />}
                     />
-                    <Route path='assistance-offers' element={<Requests type='help offer' />} />
+                    <Route
+                        path='assistance-offers'
+                        element={<Requests type='help offer' />}
+                    />
                     <Route path='resources' element={<Resources />} />
+                    <Route
+                        path='chats'
+                        element={
+                            <Protected>
+                                <ChatList />
+                            </Protected>
+                        }
+                    />
+                    <Route
+                        path='chats/:chatID'
+                        element={
+                            <Protected>
+                                <Chat />
+                            </Protected>
+                        }
+                    />
                     <Route
                         path='create'
                         element={

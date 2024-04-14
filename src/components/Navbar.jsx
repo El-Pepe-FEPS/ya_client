@@ -27,59 +27,59 @@ export const Navbar = () => {
 
     const pages = user
         ? [
-            {
-                route: '/',
-                title: 'Home',
+              {
+                  route: '/',
+                  title: 'Home',
+              },
+              {
+                  route: '/assistance-offers',
+                  title: 'Assistance Offers',
+              },
+              {
+                  route: '/assistance-requests',
+                  title: 'Assistance Request',
+              },
+              {
+                  route: '/resources',
+                  title: 'Resources',
+              },
+              {
+                  route: '/chats',
+                  title: 'Chats',
+              },
+              {
+                  route: '/create',
+                  title: 'Create Post',
+              },
 
-            },
-            {
-                route: '/assistance-offers',
-                title: 'Assistance Offers',
-            },
-            {
-                route: '/assistance-requests',
-                title: 'Assistance Request',
-            },
-            {
-                route: '/Resources',
-                title: 'Resources',
-            },
-            {
-                route: '/create',
-                title: 'Create Post',
-            },
-
-            { route: '/profile', title: 'Profile' },
-
-
-        ]
+              { route: '/profile', title: 'Profile' },
+          ]
         : [
-            {
-                route: '/',
-                title: 'Home',
-            },
-            {
-                route: '/assistance-requests',
-                title: 'Assistance Requests',
-            },
-            {
-                route: '/assistance-offers',
-                title: 'Assistance Offers',
-            },
-            {
-                route: '/resources',
-                title: 'Resources',
-            },
-            {
-                route: '/sign-in',
-                title: 'Sign In',
-            },
-            {
-                route: '/sign-up',
-                title: 'Sign Up',
-            },
-
-        ];
+              {
+                  route: '/',
+                  title: 'Home',
+              },
+              {
+                  route: '/assistance-requests',
+                  title: 'Assistance Requests',
+              },
+              {
+                  route: '/assistance-offers',
+                  title: 'Assistance Offers',
+              },
+              {
+                  route: '/resources',
+                  title: 'Resources',
+              },
+              {
+                  route: '/sign-in',
+                  title: 'Sign In',
+              },
+              {
+                  route: '/sign-up',
+                  title: 'Sign Up',
+              },
+          ];
 
     return (
         <AppBar

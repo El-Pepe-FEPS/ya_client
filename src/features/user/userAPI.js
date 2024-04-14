@@ -24,6 +24,18 @@ export const login = createAsyncThunk(
     }
 );
 
+export const loginWithSession = createAsyncThunk('user/login', async () => {
+    try {
+        const res = await axios.get('http://localhost:8000/login/', {
+            withCredentials: true,
+        });
+
+        return res.data;
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 export const register = createAsyncThunk(
     'user/register',
     async ({ credentials, csrf }, { rejectWithValue }) => {

@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 
 const INITIAL_STATE = {
     user: null,
-    error: null,
     pending: false,
 };
 
@@ -20,7 +19,6 @@ const userSlice = createSlice({
             .addCase(register.fulfilled, (state, action) => {
                 state.user = action.payload;
                 state.pending = false;
-                state.error = null;
             })
             .addMatcher(isAnyOf(login.pending, register.pending), (state) => {
                 state.pending = true;
@@ -28,7 +26,6 @@ const userSlice = createSlice({
             .addMatcher(
                 isAnyOf(login.rejected, register.rejected),
                 (state, action) => {
-                    state.error = action.payload;
                     state.pending = false;
 
                     if (typeof action.payload === 'string') {
@@ -46,6 +43,5 @@ const userSlice = createSlice({
 export default userSlice.reducer;
 export const selectUser = (state) => [
     state.userReducer.user,
-    state.userReducer.error,
     state.userReducer.pending,
 ];
