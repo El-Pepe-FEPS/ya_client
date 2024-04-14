@@ -1,6 +1,7 @@
 import {
     Avatar,
     Button,
+    Chip,
     CircularProgress,
     Stack,
     Typography,
@@ -20,21 +21,39 @@ export const PostDetails = () => {
 
     return (
         <article>
+            <Chip
+                variant='outlined'
+                color='primary'
+                label={
+                    post.type === 'help offer'
+                        ? 'Assistance offer'
+                        : 'Assistance request'
+                }
+                sx={{ marginBlockEnd: 2, textTransform: 'capitalize' }}
+            />
+
             <Typography variant='h4' component='h2' gutterBottom>
                 {post.title}
             </Typography>
-            <Stack direction='row' spacing={1} mb={2} alignItems='center'>
+            <Stack
+                direction={{ xs: 'column', md: 'row' }}
+                spacing={1}
+                mb={2}
+                alignItems={{ xs: 'start', md: 'center' }}
+            >
                 <Typography variant='body1' paragraph>
                     Written by:
                 </Typography>
-                <Avatar sx={{ inlineSize: '24px', blockSize: '24px' }} />
-                <Typography variant='body1'>
-                    {[
-                        post.user.name,
-                        post.user.surname,
-                        post.user.patronymic,
-                    ].join(' ')}
-                </Typography>
+                <Stack direction='row' spacing={1}>
+                    <Avatar sx={{ inlineSize: '24px', blockSize: '24px' }} />
+                    <Typography variant='body1'>
+                        {[
+                            post.user.name,
+                            post.user.surname,
+                            post.user.patronymic,
+                        ].join(' ')}
+                    </Typography>
+                </Stack>
             </Stack>
 
             <Typography
@@ -46,11 +65,13 @@ export const PostDetails = () => {
                 {post.description}
             </Typography>
 
-            <Stack direction='row' spacing={4}>
-                <Button variant='outlined' color='primary'>
-                    Contact
-                </Button>
-            </Stack>
+            <Button
+                variant='outlined'
+                color='primary'
+                sx={{ marginBlockStart: 3 }}
+            >
+                Contact
+            </Button>
         </article>
     );
 };
